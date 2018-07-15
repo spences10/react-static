@@ -1,3 +1,5 @@
+require('@babel/register')
+
 const updateNotifier = require('update-notifier')
 const pkg = require('../../package.json')
 const PrettyError = require('pretty-error')
@@ -40,7 +42,5 @@ console.error = (err, ...rest) => console.log(new PrettyError().render(err), ...
 // Be sure to log useful information about unhandled exceptions. This should seriously
 // be a default: https://github.com/nodejs/node/issues/9523#issuecomment-259303079
 process.on('unhandledRejection', r => {
-  console.log('')
-  console.log('UnhandledPromiseRejectionWarning: Unhandled Promise Rejection')
   console.error(r)
 })

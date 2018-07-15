@@ -3,7 +3,6 @@ import buildXMLandRSS, {
   getPermaLink,
   makeGenerateRouteXML,
   generateXML,
-  getSiteRoot,
 } from '../buildXML'
 
 describe('getPermaLink', () => {
@@ -79,48 +78,11 @@ describe('generateXML', () => {
   })
 })
 
-describe('getSiteRoot', () => {
-  const oldProcessEnv = [...process.env]
-
-  afterEach(() => {
-    process.env = [...oldProcessEnv]
-  })
-
-  describe('when enviroment is staging', () => {
-    it('should return the siteRoot', () => {
-      process.env = { REACT_STATIC_STAGING: undefined }
-      const config = {
-        siteRoot: 'www.example.com',
-        stagingSiteRoot: 'www.staging.example.com',
-      }
-
-      const siteRoot = getSiteRoot(config)
-
-      expect(siteRoot).toEqual('www.example.com')
-    })
-  })
-
-  describe('when enviroment is staging', () => {
-    it('should return the stagingSiteRoot for siteRoot', () => {
-      process.env.REACT_STATIC_STAGING = 'true'
-
-      const config = {
-        siteRoot: 'www.example.com',
-        stagingSiteRoot: 'www.staging.example.com',
-      }
-
-      const siteRoot = getSiteRoot(config)
-
-      expect(siteRoot).toEqual('www.staging.example.com')
-    })
-  })
-})
-
 describe('when custom properties are defined', () => {
-  const oldProcessEnv = [...process.env]
+  const oldProcessEnv = { ...process.env }
 
   afterEach(() => {
-    process.env = [...oldProcessEnv]
+    process.env = { ...oldProcessEnv }
   })
 
   beforeEach(() => {
